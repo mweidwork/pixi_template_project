@@ -1,67 +1,58 @@
+# ===========================
+# Pre-commit configuration
+# ===========================
 exclude: ^(\.copier-answers\.yml)|.pixi$
+
 repos:
   - repo: local
     hooks:
-      # ensure pixi environments are up to date
-      # workaround for https://github.com/prefix-dev/pixi/issues/1482
+
+      # ---------------------------
+      # Pixi environment updater
+      # ---------------------------
       - id: pixi-install
-        name: pixi-install
+        name: Pixi Install Environments
         entry: pixi install -e default -e lint
         language: system
         always_run: true
-      # ruff
+        require_serial: true
+        pass_filenames: false
+
+      # ---------------------------
+      # Python code linting & formatting
+      # ---------------------------
       - id: ruff
-        name: ruff
+        name: Ruff Lint
         entry: pixi run -e lint ruff check --fix --exit-non-zero-on-fix --force-exclude
         language: system
         types_or: [python, pyi]
         require_serial: true
+        always_run: true
+
       - id: ruff-format
-        name: ruff-format
+        name: Ruff Format
         entry: pixi run -e lint ruff format --force-exclude
         language: system
         types_or: [python, pyi]
         require_serial: true
+        always_run: true
+
       # mypy
       - id: mypy
         name: mypy
-        entry: pixi run -e default mypy
+        entry: pixi run -e default mypy {{ project_package_name_snake_case }}
         language: system
         types: [python]
         require_serial: true
-      # prettier
+        always_run: true
+
+      # ---------------------------
+      # Markdown/YAML formatting
+      # ---------------------------
       - id: prettier
-        name: prettier
+        name: Prettier
         entry: pixi run -e lint prettier --write --list-different --ignore-unknown
         language: system
         types: [text]
         files: \.(md|yml|yaml)$
-      # taplo
-      - id: taplo
-        name: taplo
-        entry: pixi run -e lint taplo format
-        language: system
-        types: [toml]
-      # pre-commit-hooks
-      - id: trailing-whitespace-fixer
-        name: trailing-whitespace-fixer
-        entry: pixi run -e lint trailing-whitespace-fixer
-        language: system
-        types: [text]
-      - id: end-of-file-fixer
-        name: end-of-file-fixer
-        entry: pixi run -e lint end-of-file-fixer
-        language: system
-        types: [text]
-      - id: check-merge-conflict
-        name: check-merge-conflict
-        entry: pixi run -e lint check-merge-conflict --assume-in-merge
-        language: system
-        types: [text]
-      # typos
-      - id: typos
-        name: typos
-        entry: pixi run -e lint typos --force-exclude
-        language: system
-        types: [text]
-        require_serial: true
+        always_run: true

@@ -83,11 +83,6 @@ minimal_python_version:
     - 3.14
   default: 3.9
 
-setup_pixi:
-  type: bool
-  default: true
-  help: Do you want to set up Pixi in this project?
-
 # ===========================
 # Post-generation Tasks
 # ===========================
