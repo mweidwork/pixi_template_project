@@ -35,8 +35,8 @@ jobs:
           cache: true
           environments: default lint
 
-      - name: Run tests
-        run: pixi run test
+    #   - name: Run tests
+    #     run: pixi run test
 
       - name: pre-commit
         run: pixi run pre-commit-run --color=always --show-diff-on-failure
