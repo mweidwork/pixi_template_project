@@ -17,24 +17,27 @@ permissions:
 
 # Define action jobs
 jobs:
-    # Run pre-commit checks again
-    pre-commit-checks:
-        name: Pre-commit Checks
-        runs-on: ubuntu-latest
-        timeout-minutes: 30
+  # Run pre-commit checks again
+  pre-commit-checks:
+    name: Pre-commit Checks
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5  # https://github.com/actions/checkout
+        with:
+          fetch-depth: 0  # Fetch all history for accurate pre-commit checks
 
-        # Steps to execute
-        steps:
-            - name: Checkout
-            uses: actions/checkout@v5   # https://github.com/actions/checkout
-            with:
-                fetch-depth: 0  # Fetch all history for accurate pre-commit checks
-            - name: Set up pixi environment
-            uses: prefix-dev/setup-pixi@v0.9.3
-            with:
-                pixi-version: v0.59.0
-                cache: true
-                environments: default lint
-            run: pixi run test
-            - name: pre-commit
-            run: pixi run pre-commit-run --color=always --show-diff-on-failure
+      - name: Set up pixi environment
+        uses: prefix-dev/setup-pixi@v0.9.3
+        with:
+          pixi-version: v0.59.0
+          cache: true
+          environments: default lint
+
+      - name: Run tests
+        run: pixi run test
+
+      - name: pre-commit
+        run: pixi run pre-commit-run --color=always --show-diff-on-failure
+
