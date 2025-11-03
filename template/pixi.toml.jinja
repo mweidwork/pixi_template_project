@@ -10,7 +10,7 @@ platforms = ["linux-64", "win-64"]
 # Runs after installation
 postinstall = { cmd = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ." }
 
-[host-dependencies]
+[dependencies]
 python = ">={{ minimal_python_version }}"
 pip = "*"
 setuptools = "*"
