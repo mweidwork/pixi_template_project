@@ -2,18 +2,18 @@ name: CI-Pipeline
 
 # Run on pushes to main branch
 on:
-    pull_request:
-    push:
-        branches: [main]
+  pull_request:
+  push:
+    branches: [main]
 
 # Avoid overlapping runs
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 # Action can only read repository contents
 permissions:
-    contents: read
+  contents: read
 
 # Define action jobs
 jobs:
@@ -24,9 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5  # https://github.com/actions/checkout
+        uses: actions/checkout@v5 # https://github.com/actions/checkout
         with:
-          fetch-depth: 0  # Fetch all history for accurate pre-commit checks
+          fetch-depth: 0 # Fetch all history for accurate pre-commit checks
 
       - name: Set up pixi environment
         uses: prefix-dev/setup-pixi@v0.9.3
@@ -35,9 +35,8 @@ jobs:
           cache: true
           environments: default lint
 
-    #   - name: Run tests
-    #     run: pixi run test
+      #   - name: Run tests
+      #     run: pixi run test
 
       - name: pre-commit
         run: pixi run pre-commit-run --color=always --show-diff-on-failure
-

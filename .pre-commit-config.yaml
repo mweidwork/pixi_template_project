@@ -1,12 +1,11 @@
 # ===========================
 # Pre-commit configuration
 # ===========================
-exclude: ^(\.copier-answers\.yml)|.pixi$
+exclude: ^template
 
 repos:
   - repo: local
     hooks:
-
       # ---------------------------
       # Pixi environment updater
       # ---------------------------
@@ -22,8 +21,9 @@ repos:
       # Python code linting & formatting
       # ---------------------------
       - id: ruff
-        name: Ruff Lint
+        name: ruff
         entry: pixi run -e lint ruff check --fix --exit-non-zero-on-fix --force-exclude
+        exclude: ^template
         language: system
         types_or: [python, pyi]
         require_serial: true
@@ -32,17 +32,9 @@ repos:
       - id: ruff-format
         name: Ruff Format
         entry: pixi run -e lint ruff format --force-exclude
+        exclude: ^template
         language: system
         types_or: [python, pyi]
-        require_serial: true
-        always_run: true
-
-      # mypy
-      - id: mypy
-        name: mypy
-        entry: pixi run -e default mypy {{ project_package_name_snake_case }}
-        language: system
-        types: [python]
         require_serial: true
         always_run: true
 

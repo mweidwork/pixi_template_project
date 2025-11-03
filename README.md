@@ -39,6 +39,7 @@ pixi shell        # Opens the managed shell
 ```
 
 Run common tasks:
+
 ```bash
 pixi run postinstall     # Installs the package in editable mode
 pixi run test            # Runs tests with pytest
@@ -47,10 +48,12 @@ pixi run pre-commit-all  # Runs all pre-commit hooks
 ```
 
 When multiple environments are defined:
+
 ```bash
 pixi run -e dev <task>   # Runs a task inside the dev environment
 pixi run -e lint ruff check .
 ```
+
 </details>
 
 ---
@@ -83,6 +86,7 @@ Add a package with version constraints:
 ```bash
 pixi add "pandas>=2.0"
 ```
+
 </details>
 
 ---
@@ -103,6 +107,7 @@ pixi update requests
 ```
 
 Pixi automatically updates the lockfile to ensure deterministic builds.
+
 </details>
 
 ---
@@ -121,6 +126,7 @@ Remove from a specific environment:
 ```bash
 pixi remove pytest -e test
 ```
+
 </details>
 
 </details>

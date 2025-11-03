@@ -6,7 +6,6 @@ exclude: ^(\.copier-answers\.yml)|.pixi$
 repos:
   - repo: local
     hooks:
-
       # ---------------------------
       # Pixi environment updater
       # ---------------------------
