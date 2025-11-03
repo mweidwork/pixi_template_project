@@ -52,6 +52,6 @@ pre-commit-run = "pre-commit run -a"
 # Environments
 # ===========================
 [environments]
-default = ["dev", "test", "lint"]
+default = ["test", "lint"]
 test = ["test"]
-dev = ["dev"]
+lint = { features = ["lint"], no-default-feature = true }
